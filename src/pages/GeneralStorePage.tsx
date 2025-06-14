@@ -3,7 +3,7 @@ import React, { useState, useRef } from 'react';
 import PageLayout from '../components/layout/PageLayout';
 import PageHeader from '../components/layout/PageHeader';
 import { Button } from '../components/ui/button';
-import { Download, Plus, Upload, FileUp, FileDown, Archive, Search, AlertTriangle, Package, Calendar } from 'lucide-react';
+import { Download, Plus, Upload, FileUp, FileDown, Archive, Search, AlertTriangle, Package, Calendar, MapPin, Clock } from 'lucide-react';
 import { DatePickerWithRange } from '../components/ui/date-range-picker';
 import { DateRange } from 'react-day-picker';
 import { useToast } from "@/hooks/use-toast";
@@ -18,6 +18,7 @@ import { Input } from '@/components/ui/input';
 import { motion } from 'framer-motion';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
+import { Progress } from '@/components/ui/progress';
 
 const GeneralStorePage = () => {
   const { toast } = useToast();
@@ -32,7 +33,7 @@ const GeneralStorePage = () => {
     handleDescriptionChange 
   } = usePageMetadata({
     defaultTitle: 'General Store Inventory',
-    defaultDescription: 'Manage office supplies, maintenance equipment, and general workplace materials'
+    defaultDescription: 'Manage office supplies, maintenance equipment, and general workplace materials for HSE operations'
   });
 
   // HSE-focused general store inventory data
@@ -48,7 +49,8 @@ const GeneralStorePage = () => {
       lastOrdered: '2024-05-15',
       status: 'In Stock',
       location: 'Storage Room A',
-      expiryDate: 'N/A'
+      expiryDate: 'N/A',
+      price: 0.05
     },
     {
       id: 2,
@@ -61,7 +63,8 @@ const GeneralStorePage = () => {
       lastOrdered: '2024-04-20',
       status: 'In Stock',
       location: 'Maintenance Workshop',
-      expiryDate: 'N/A'
+      expiryDate: 'N/A',
+      price: 0.75
     },
     {
       id: 3,
@@ -74,11 +77,12 @@ const GeneralStorePage = () => {
       lastOrdered: '2024-03-10',
       status: 'Low Stock',
       location: 'Cleaning Storage',
-      expiryDate: '2025-03-15'
+      expiryDate: '2025-03-15',
+      price: 8.50
     },
     {
       id: 4,
-      name: 'Emergency First Aid Supplies',
+      name: 'Emergency First Aid Kit',
       category: 'Medical & Safety',
       quantity: 5,
       unit: 'kits',
@@ -87,7 +91,8 @@ const GeneralStorePage = () => {
       lastOrdered: '2024-02-28',
       status: 'Critical',
       location: 'Medical Storage',
-      expiryDate: '2024-12-31'
+      expiryDate: '2024-12-31',
+      price: 45.00
     },
     {
       id: 5,
@@ -100,7 +105,8 @@ const GeneralStorePage = () => {
       lastOrdered: '2024-04-05',
       status: 'In Stock',
       location: 'Safety Equipment Room',
-      expiryDate: 'N/A'
+      expiryDate: 'N/A',
+      price: 12.00
     },
     {
       id: 6,
@@ -113,7 +119,8 @@ const GeneralStorePage = () => {
       lastOrdered: '2024-01-15',
       status: 'Low Stock',
       location: 'Spill Response Area',
-      expiryDate: 'N/A'
+      expiryDate: 'N/A',
+      price: 25.00
     }
   ];
 
@@ -181,6 +188,13 @@ const GeneralStorePage = () => {
       'Spill Control': 'bg-cyan-100 text-cyan-800'
     };
     return colors[category as keyof typeof colors] || 'bg-gray-100 text-gray-800';
+  };
+
+  const getStockLevel = (current: number, min: number) => {
+    const percentage = (current / min) * 100;
+    if (percentage >= 100) return { level: 'healthy', color: 'bg-green-500', percentage: Math.min(percentage, 100) };
+    if (percentage >= 50) return { level: 'warning', color: 'bg-yellow-500', percentage };
+    return { level: 'critical', color: 'bg-red-500', percentage };
   };
 
   const filteredItems = generalStoreItems.filter(item =>
@@ -277,6 +291,7 @@ const GeneralStorePage = () => {
   const totalItems = filteredItems.length;
   const lowStockItems = filteredItems.filter(item => item.status === 'Low Stock' || item.status === 'Critical').length;
   const criticalItems = filteredItems.filter(item => item.status === 'Critical').length;
+  const totalValue = filteredItems.reduce((sum, item) => sum + (item.quantity * item.price), 0);
 
   return (
     <PageLayout>
@@ -292,58 +307,62 @@ const GeneralStorePage = () => {
         />
 
         {/* Statistics Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
-          <Card className="border-green-100 hover:shadow-md transition-shadow">
-            <CardContent className="p-4">
-              <div className="flex items-center space-x-3">
-                <div className="p-2 bg-green-100 rounded-lg">
-                  <Package className="h-5 w-5 text-green-600" />
-                </div>
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+          <Card className="border-green-100 hover:shadow-lg transition-all duration-200 bg-gradient-to-br from-white to-green-50">
+            <CardContent className="p-6">
+              <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm text-gray-600">Total Items</p>
-                  <p className="text-2xl font-bold text-gray-900">{totalItems}</p>
+                  <p className="text-sm font-medium text-gray-600">Total Items</p>
+                  <p className="text-3xl font-bold text-gray-900">{totalItems}</p>
+                  <p className="text-xs text-green-600 mt-1">Active inventory</p>
+                </div>
+                <div className="p-3 bg-green-100 rounded-full">
+                  <Package className="h-8 w-8 text-green-600" />
                 </div>
               </div>
             </CardContent>
           </Card>
 
-          <Card className="border-yellow-100 hover:shadow-md transition-shadow">
-            <CardContent className="p-4">
-              <div className="flex items-center space-x-3">
-                <div className="p-2 bg-yellow-100 rounded-lg">
-                  <AlertTriangle className="h-5 w-5 text-yellow-600" />
-                </div>
+          <Card className="border-yellow-100 hover:shadow-lg transition-all duration-200 bg-gradient-to-br from-white to-yellow-50">
+            <CardContent className="p-6">
+              <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm text-gray-600">Low Stock</p>
-                  <p className="text-2xl font-bold text-gray-900">{lowStockItems}</p>
+                  <p className="text-sm font-medium text-gray-600">Low Stock Alerts</p>
+                  <p className="text-3xl font-bold text-gray-900">{lowStockItems}</p>
+                  <p className="text-xs text-yellow-600 mt-1">Needs attention</p>
+                </div>
+                <div className="p-3 bg-yellow-100 rounded-full">
+                  <AlertTriangle className="h-8 w-8 text-yellow-600" />
                 </div>
               </div>
             </CardContent>
           </Card>
 
-          <Card className="border-red-100 hover:shadow-md transition-shadow">
-            <CardContent className="p-4">
-              <div className="flex items-center space-x-3">
-                <div className="p-2 bg-red-100 rounded-lg">
-                  <AlertTriangle className="h-5 w-5 text-red-600" />
-                </div>
+          <Card className="border-red-100 hover:shadow-lg transition-all duration-200 bg-gradient-to-br from-white to-red-50">
+            <CardContent className="p-6">
+              <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm text-gray-600">Critical Items</p>
-                  <p className="text-2xl font-bold text-gray-900">{criticalItems}</p>
+                  <p className="text-sm font-medium text-gray-600">Critical Items</p>
+                  <p className="text-3xl font-bold text-gray-900">{criticalItems}</p>
+                  <p className="text-xs text-red-600 mt-1">Immediate action</p>
+                </div>
+                <div className="p-3 bg-red-100 rounded-full">
+                  <AlertTriangle className="h-8 w-8 text-red-600" />
                 </div>
               </div>
             </CardContent>
           </Card>
 
-          <Card className="border-blue-100 hover:shadow-md transition-shadow">
-            <CardContent className="p-4">
-              <div className="flex items-center space-x-3">
-                <div className="p-2 bg-blue-100 rounded-lg">
-                  <Calendar className="h-5 w-5 text-blue-600" />
-                </div>
+          <Card className="border-blue-100 hover:shadow-lg transition-all duration-200 bg-gradient-to-br from-white to-blue-50">
+            <CardContent className="p-6">
+              <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm text-gray-600">Categories</p>
-                  <p className="text-2xl font-bold text-gray-900">6</p>
+                  <p className="text-sm font-medium text-gray-600">Total Value</p>
+                  <p className="text-3xl font-bold text-gray-900">${totalValue.toFixed(0)}</p>
+                  <p className="text-xs text-blue-600 mt-1">Inventory worth</p>
+                </div>
+                <div className="p-3 bg-blue-100 rounded-full">
+                  <Calendar className="h-8 w-8 text-blue-600" />
                 </div>
               </div>
             </CardContent>
@@ -351,64 +370,103 @@ const GeneralStorePage = () => {
         </div>
 
         {/* Inventory Items Grid */}
-        <div className="grid gap-4">
-          {filteredItems.map((item) => (
-            <Card key={item.id} className="hover:shadow-md transition-shadow border-l-4 border-l-green-500">
-              <CardHeader className="pb-3">
-                <div className="flex items-center justify-between">
-                  <CardTitle className="text-lg font-semibold text-gray-900">{item.name}</CardTitle>
-                  <div className="flex gap-2">
-                    <Badge className={getCategoryColor(item.category)}>
-                      {item.category}
-                    </Badge>
-                    <Badge className={getStatusColor(item.status)}>
-                      {item.status}
-                    </Badge>
-                  </div>
-                </div>
-              </CardHeader>
-              <CardContent>
-                <div className="grid grid-cols-2 md:grid-cols-5 gap-4 text-sm">
-                  <div>
-                    <p className="text-gray-500 font-medium">Current Stock</p>
-                    <p className="font-semibold text-gray-900">{item.quantity} {item.unit}</p>
-                    <p className="text-xs text-gray-400">Min required: {item.minStock}</p>
-                  </div>
-                  <div>
-                    <p className="text-gray-500 font-medium">Supplier</p>
-                    <p className="font-semibold text-gray-900">{item.supplier}</p>
-                  </div>
-                  <div>
-                    <p className="text-gray-500 font-medium">Location</p>
-                    <p className="font-semibold text-gray-900">{item.location}</p>
-                  </div>
-                  <div>
-                    <p className="text-gray-500 font-medium">Last Ordered</p>
-                    <p className="font-semibold text-gray-900">{item.lastOrdered}</p>
-                  </div>
-                  <div>
-                    <p className="text-gray-500 font-medium">Stock Level</p>
-                    <div className="flex items-center space-x-2">
-                      <div className={`w-3 h-3 rounded-full ${
-                        item.quantity > item.minStock ? 'bg-green-500' : 
-                        item.quantity > item.minStock * 0.5 ? 'bg-yellow-500' : 'bg-red-500'
-                      }`}></div>
-                      <span className="text-xs font-medium">
-                        {Math.round((item.quantity / item.minStock) * 100)}% of minimum
-                      </span>
+        <div className="grid gap-6">
+          {filteredItems.map((item) => {
+            const stockLevel = getStockLevel(item.quantity, item.minStock);
+            return (
+              <Card key={item.id} className="hover:shadow-lg transition-all duration-200 border-l-4 border-l-green-500 bg-white">
+                <CardHeader className="pb-4">
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center space-x-4">
+                      <div className="p-2 bg-green-100 rounded-lg">
+                        <Package className="h-5 w-5 text-green-600" />
+                      </div>
+                      <div>
+                        <CardTitle className="text-xl font-semibold text-gray-900">{item.name}</CardTitle>
+                        <p className="text-sm text-gray-500 flex items-center mt-1">
+                          <MapPin className="h-3 w-3 mr-1" />
+                          {item.location}
+                        </p>
+                      </div>
+                    </div>
+                    <div className="flex gap-2">
+                      <Badge className={getCategoryColor(item.category)}>
+                        {item.category}
+                      </Badge>
+                      <Badge className={getStatusColor(item.status)}>
+                        {item.status}
+                      </Badge>
                     </div>
                   </div>
-                </div>
-              </CardContent>
-            </Card>
-          ))}
+                </CardHeader>
+                <CardContent>
+                  <div className="grid grid-cols-2 md:grid-cols-6 gap-6 text-sm">
+                    <div>
+                      <p className="text-gray-500 font-medium mb-1">Current Stock</p>
+                      <p className="font-bold text-lg text-gray-900">{item.quantity} {item.unit}</p>
+                      <p className="text-xs text-gray-400">Min required: {item.minStock}</p>
+                    </div>
+                    <div>
+                      <p className="text-gray-500 font-medium mb-1">Supplier</p>
+                      <p className="font-semibold text-gray-900">{item.supplier}</p>
+                    </div>
+                    <div>
+                      <p className="text-gray-500 font-medium mb-1">Unit Price</p>
+                      <p className="font-semibold text-gray-900">${item.price}</p>
+                      <p className="text-xs text-gray-400">per {item.unit}</p>
+                    </div>
+                    <div>
+                      <p className="text-gray-500 font-medium mb-1">Total Value</p>
+                      <p className="font-semibold text-gray-900">${(item.quantity * item.price).toFixed(2)}</p>
+                    </div>
+                    <div>
+                      <p className="text-gray-500 font-medium mb-1">Last Ordered</p>
+                      <p className="font-semibold text-gray-900 flex items-center">
+                        <Clock className="h-3 w-3 mr-1" />
+                        {new Date(item.lastOrdered).toLocaleDateString()}
+                      </p>
+                    </div>
+                    <div>
+                      <p className="text-gray-500 font-medium mb-1">Stock Level</p>
+                      <div className="space-y-2">
+                        <div className="flex items-center justify-between">
+                          <span className="text-xs font-medium">{stockLevel.percentage.toFixed(0)}% of minimum</span>
+                          <div className={`w-3 h-3 rounded-full ${stockLevel.color}`}></div>
+                        </div>
+                        <Progress 
+                          value={stockLevel.percentage} 
+                          className="h-2"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                  
+                  {item.expiryDate !== 'N/A' && (
+                    <div className="mt-4 p-3 bg-amber-50 border border-amber-200 rounded-lg">
+                      <p className="text-sm text-amber-800">
+                        <AlertTriangle className="h-4 w-4 inline mr-1" />
+                        Expires: {new Date(item.expiryDate).toLocaleDateString()}
+                      </p>
+                    </div>
+                  )}
+                </CardContent>
+              </Card>
+            );
+          })}
           
           {filteredItems.length === 0 && (
-            <Card className="p-8 text-center">
+            <Card className="p-12 text-center bg-gray-50">
               <CardContent>
-                <Archive className="h-12 w-12 text-gray-400 mx-auto mb-4" />
-                <h3 className="text-lg font-semibold text-gray-900 mb-2">No Items Found</h3>
+                <Archive className="h-16 w-16 text-gray-400 mx-auto mb-4" />
+                <h3 className="text-xl font-semibold text-gray-900 mb-2">No Items Found</h3>
                 <p className="text-gray-600">No general store items match your current search criteria.</p>
+                <Button 
+                  onClick={() => setSearchTerm('')} 
+                  variant="outline" 
+                  className="mt-4"
+                >
+                  Clear Search
+                </Button>
               </CardContent>
             </Card>
           )}
