@@ -114,6 +114,30 @@
 }
 
 @layer components {
+  /* Custom Scrollbar */
+  .custom-scrollbar {
+    scrollbar-width: thin;
+    scrollbar-color: #329D4B #f1f5f9;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-track {
+    background: #f1f5f9;
+    border-radius: 3px;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    background: #329D4B;
+    border-radius: 3px;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: #2d8a42;
+  }
+
   /* Glass UI components */
   .glass {
     @apply bg-white/80 backdrop-blur-md border border-white/20 shadow-glass;
@@ -176,11 +200,6 @@
 }
 
 @layer utilities {
-  /* Custom scrollbar */
-  .custom-scrollbar {
-    @apply scrollbar-thin scrollbar-thumb-primary/20 scrollbar-track-transparent hover:scrollbar-thumb-primary/30;
-  }
-  
   /* Text gradients */
   .text-gradient {
     @apply bg-gradient-to-r from-primary to-agri-primary-light bg-clip-text text-transparent;
@@ -209,15 +228,15 @@
   }
   
   .badge-success {
-    @apply badge bg-agri-success/10 text-agri-success;
+    @apply badge bg-green-500/10 text-green-600;
   }
   
   .badge-warning {
-    @apply badge bg-agri-warning/10 text-agri-warning;
+    @apply badge bg-yellow-500/10 text-yellow-600;
   }
   
   .badge-danger {
-    @apply badge bg-agri-danger/10 text-agri-danger;
+    @apply badge bg-red-500/10 text-red-600;
   }
 }
 
