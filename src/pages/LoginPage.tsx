@@ -4,7 +4,7 @@ import { Navigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardContent } from '@/components/ui/card';
 import { Shield, Eye, EyeOff, Lock, Mail, Settings, Wrench, CheckCircle, Users, BarChart3 } from 'lucide-react';
 import { toast } from 'sonner';
 import { AuthContext } from '../App';
@@ -57,42 +57,42 @@ const LoginPage = () => {
   };
 
   return (
-    <div className="min-h-screen flex">
+    <div className="min-h-screen flex bg-gray-50">
       {/* Left Side - Login Form */}
-      <div className="flex-1 flex items-center justify-center p-8 bg-white">
-        <div className="w-full max-w-md">
-          {/* Login Header */}
-          <div className="text-center mb-8">
-            <div className="w-16 h-16 bg-gradient-to-br from-green-500 to-green-600 rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-lg">
-              <Shield className="h-8 w-8 text-white" />
+      <div className="flex-1 flex items-center justify-center p-6">
+        <div className="w-full max-w-sm">
+          {/* Compact Header */}
+          <div className="text-center mb-6">
+            <div className="w-12 h-12 bg-gradient-to-r from-green-600 to-green-700 rounded-xl flex items-center justify-center mx-auto mb-4 shadow-lg">
+              <Shield className="h-6 w-6 text-white" />
             </div>
-            <h1 className="text-3xl font-bold text-gray-900 mb-2">Welcome Back</h1>
-            <p className="text-gray-600">Sign in to your HSE management dashboard</p>
+            <h1 className="text-2xl font-bold text-gray-900 mb-1">Welcome Back</h1>
+            <p className="text-sm text-gray-600">Sign in to your HSE dashboard</p>
           </div>
 
-          {/* Login Form */}
-          <Card className="shadow-xl border-0 bg-white">
-            <CardContent className="p-8">
-              <form onSubmit={handleSubmit} className="space-y-6">
-                <div className="space-y-2">
-                  <Label htmlFor="email" className="text-gray-800 font-medium flex items-center gap-2">
-                    <Mail className="h-4 w-4 text-green-600" />
-                    Email Address
+          {/* Compact Login Form */}
+          <Card className="shadow-lg border-0 bg-white">
+            <CardContent className="p-6">
+              <form onSubmit={handleSubmit} className="space-y-4">
+                <div className="space-y-1">
+                  <Label htmlFor="email" className="text-sm font-medium text-gray-700 flex items-center gap-2">
+                    <Mail className="h-3.5 w-3.5 text-green-600" />
+                    Email
                   </Label>
                   <Input 
                     id="email" 
                     type="email" 
-                    placeholder="Enter your work email" 
+                    placeholder="your.email@company.com" 
                     value={email} 
                     onChange={e => setEmail(e.target.value)} 
                     required 
-                    className="h-12 border-gray-200 focus:border-green-500 focus:ring-green-500/20" 
+                    className="h-10 text-sm border-gray-200 focus:border-green-500 focus:ring-green-500/20" 
                   />
                 </div>
                 
-                <div className="space-y-2">
-                  <Label htmlFor="password" className="text-gray-800 font-medium flex items-center gap-2">
-                    <Lock className="h-4 w-4 text-green-600" />
+                <div className="space-y-1">
+                  <Label htmlFor="password" className="text-sm font-medium text-gray-700 flex items-center gap-2">
+                    <Lock className="h-3.5 w-3.5 text-green-600" />
                     Password
                   </Label>
                   <div className="relative">
@@ -103,75 +103,75 @@ const LoginPage = () => {
                       value={password} 
                       onChange={e => setPassword(e.target.value)} 
                       required 
-                      className="h-12 pr-12 border-gray-200 focus:border-green-500 focus:ring-green-500/20" 
+                      className="h-10 pr-10 text-sm border-gray-200 focus:border-green-500 focus:ring-green-500/20" 
                     />
                     <button 
                       type="button" 
                       onClick={() => setShowPassword(!showPassword)} 
-                      className="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-green-600"
+                      className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-green-600"
                     >
-                      {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+                      {showPassword ? <EyeOff size={16} /> : <Eye size={16} />}
                     </button>
                   </div>
                 </div>
 
                 <Button 
                   type="submit" 
-                  className="w-full h-12 bg-gradient-to-r from-green-600 to-green-700 hover:from-green-700 hover:to-green-800 text-white font-semibold shadow-lg" 
+                  className="w-full h-10 bg-gradient-to-r from-green-600 to-green-700 hover:from-green-700 hover:to-green-800 text-white font-medium text-sm shadow-md" 
                   disabled={isLoading}
                 >
                   {isLoading ? (
                     <div className="flex items-center gap-2">
-                      <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
-                      Signing you in...
+                      <div className="w-3 h-3 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                      Signing in...
                     </div>
                   ) : (
                     <div className="flex items-center gap-2">
-                      <Shield className="h-4 w-4" />
-                      Sign In Securely
+                      <Shield className="h-3.5 w-3.5" />
+                      Sign In
                     </div>
                   )}
                 </Button>
               </form>
 
-              {/* Demo Access */}
-              <div className="mt-8 pt-6 border-t border-gray-100">
-                <h3 className="text-sm font-semibold text-gray-900 mb-4 text-center">Demo Access</h3>
-                <div className="space-y-2">
+              {/* Compact Demo Access */}
+              <div className="mt-5 pt-4 border-t border-gray-100">
+                <p className="text-xs font-medium text-gray-600 mb-3 text-center">Quick Demo Access</p>
+                <div className="space-y-1.5">
                   <Button 
                     variant="outline" 
                     onClick={() => fillDemoCredentials('admin')} 
-                    className="w-full justify-between text-left border-gray-200 hover:border-green-300 hover:bg-green-50"
+                    className="w-full h-8 justify-between text-xs border-gray-200 hover:border-green-300 hover:bg-green-50"
                   >
-                    <div className="flex items-center gap-3">
-                      <Settings className="h-4 w-4 text-green-600" />
-                      <span className="text-sm">Store Manager</span>
+                    <div className="flex items-center gap-2">
+                      <Settings className="h-3 w-3 text-green-600" />
+                      <span>Store Manager</span>
                     </div>
-                    <span className="text-xs bg-green-100 text-green-700 px-2 py-1 rounded">ADMIN</span>
+                    <span className="text-xs bg-green-100 text-green-700 px-1.5 py-0.5 rounded">ADMIN</span>
                   </Button>
 
                   <Button 
                     variant="outline" 
                     onClick={() => fillDemoCredentials('hse')} 
-                    className="w-full justify-between text-left border-gray-200 hover:border-green-300 hover:bg-green-50"
+                    className="w-full h-8 justify-between text-xs border-gray-200 hover:border-green-300 hover:bg-green-50"
                   >
-                    <div className="flex items-center gap-3">
-                      <Shield className="h-4 w-4 text-green-600" />
-                      <span className="text-sm">HSE Officer</span>
+                    <div className="flex items-center gap-2">
+                      <Shield className="h-3 w-3 text-green-600" />
+                      <span>HSE Officer</span>
                     </div>
-                    <span className="text-xs bg-blue-100 text-blue-700 px-2 py-1 rounded">HSE</span>
+                    <span className="text-xs bg-blue-100 text-blue-700 px-1.5 py-0.5 rounded">HSE</span>
                   </Button>
 
                   <Button 
                     variant="outline" 
                     onClick={() => fillDemoCredentials('maintenance')} 
-                    className="w-full justify-between text-left border-gray-200 hover:border-green-300 hover:bg-green-50"
+                    className="w-full h-8 justify-between text-xs border-gray-200 hover:border-green-300 hover:bg-green-50"
                   >
-                    <div className="flex items-center gap-3">
-                      <Wrench className="h-4 w-4 text-green-600" />
-                      <span className="text-sm">Maintenance Team</span>
+                    <div className="flex items-center gap-2">
+                      <Wrench className="h-3 w-3 text-green-600" />
+                      <span>Maintenance Team</span>
                     </div>
-                    <span className="text-xs bg-orange-100 text-orange-700 px-2 py-1 rounded">TECH</span>
+                    <span className="text-xs bg-orange-100 text-orange-700 px-1.5 py-0.5 rounded">TECH</span>
                   </Button>
                 </div>
               </div>
@@ -181,70 +181,70 @@ const LoginPage = () => {
       </div>
 
       {/* Right Side - Company Branding */}
-      <div className="flex-1 bg-gradient-to-br from-green-500 via-green-600 to-green-700 flex items-center justify-center p-8 relative overflow-hidden">
-        {/* Background Pattern */}
-        <div className="absolute inset-0 opacity-10">
-          <div className="absolute top-20 left-20 w-32 h-32 border-2 border-white rounded-full"></div>
-          <div className="absolute bottom-20 right-20 w-48 h-48 border border-white rounded-full"></div>
-          <div className="absolute top-1/2 left-10 w-24 h-24 border border-white rounded-full"></div>
+      <div className="flex-1 bg-gradient-to-br from-green-600 via-green-700 to-green-800 flex items-center justify-center p-6 relative overflow-hidden">
+        {/* Subtle Background Pattern */}
+        <div className="absolute inset-0 opacity-5">
+          <div className="absolute top-10 left-10 w-20 h-20 border border-white rounded-full"></div>
+          <div className="absolute bottom-10 right-10 w-32 h-32 border border-white rounded-full"></div>
+          <div className="absolute top-1/2 left-5 w-16 h-16 border border-white rounded-full"></div>
         </div>
 
-        <div className="relative z-10 text-center text-white max-w-lg">
-          {/* Logo */}
-          <div className="mb-8">
-            <div className="w-32 h-32 bg-white rounded-3xl shadow-2xl flex items-center justify-center mx-auto mb-6">
+        <div className="relative z-10 text-center text-white max-w-md">
+          {/* Compact Logo Section */}
+          <div className="mb-6">
+            <div className="w-20 h-20 bg-white rounded-2xl shadow-2xl flex items-center justify-center mx-auto mb-4">
               <img 
                 src="/lovable-uploads/11688d54-d446-4b80-a470-992728ced577.png" 
                 alt="HSE Partner Logo" 
-                className="w-24 h-24 object-contain"
+                className="w-16 h-16 object-contain"
               />
             </div>
-            <h1 className="text-5xl font-bold mb-4">YourHSEPartner</h1>
-            <p className="text-xl text-green-100 font-medium mb-8">
-              Health, Safety & Environment Management
+            <h1 className="text-3xl font-bold mb-2">YourHSEPartner</h1>
+            <p className="text-lg text-green-100 font-medium mb-6">
+              Health, Safety & Environment
             </p>
           </div>
 
-          {/* Features */}
-          <div className="space-y-6">
-            <div className="flex items-center gap-4 bg-white/10 backdrop-blur-sm rounded-xl p-4">
-              <div className="w-12 h-12 bg-white/20 rounded-xl flex items-center justify-center">
-                <Shield className="h-6 w-6 text-white" />
+          {/* Compact Features */}
+          <div className="space-y-3">
+            <div className="flex items-center gap-3 bg-white/10 backdrop-blur-sm rounded-lg p-3">
+              <div className="w-8 h-8 bg-white/20 rounded-lg flex items-center justify-center">
+                <Shield className="h-4 w-4 text-white" />
               </div>
               <div className="text-left">
-                <h3 className="font-semibold text-lg">Safety First</h3>
-                <p className="text-green-100">Comprehensive safety management system</p>
+                <h3 className="font-semibold text-sm">Safety First</h3>
+                <p className="text-xs text-green-100">Complete safety management</p>
               </div>
             </div>
 
-            <div className="flex items-center gap-4 bg-white/10 backdrop-blur-sm rounded-xl p-4">
-              <div className="w-12 h-12 bg-white/20 rounded-xl flex items-center justify-center">
-                <BarChart3 className="h-6 w-6 text-white" />
+            <div className="flex items-center gap-3 bg-white/10 backdrop-blur-sm rounded-lg p-3">
+              <div className="w-8 h-8 bg-white/20 rounded-lg flex items-center justify-center">
+                <BarChart3 className="h-4 w-4 text-white" />
               </div>
               <div className="text-left">
-                <h3 className="font-semibold text-lg">Real-time Analytics</h3>
-                <p className="text-green-100">Monitor and track safety metrics</p>
+                <h3 className="font-semibold text-sm">Analytics</h3>
+                <p className="text-xs text-green-100">Real-time monitoring</p>
               </div>
             </div>
 
-            <div className="flex items-center gap-4 bg-white/10 backdrop-blur-sm rounded-xl p-4">
-              <div className="w-12 h-12 bg-white/20 rounded-xl flex items-center justify-center">
-                <Users className="h-6 w-6 text-white" />
+            <div className="flex items-center gap-3 bg-white/10 backdrop-blur-sm rounded-lg p-3">
+              <div className="w-8 h-8 bg-white/20 rounded-lg flex items-center justify-center">
+                <Users className="h-4 w-4 text-white" />
               </div>
               <div className="text-left">
-                <h3 className="font-semibold text-lg">Team Collaboration</h3>
-                <p className="text-green-100">Seamless team coordination</p>
+                <h3 className="font-semibold text-sm">Team Collaboration</h3>
+                <p className="text-xs text-green-100">Seamless coordination</p>
               </div>
             </div>
           </div>
 
-          {/* Security Badge */}
-          <div className="mt-8 pt-6 border-t border-white/20">
+          {/* Compact Footer */}
+          <div className="mt-6 pt-4 border-t border-white/20">
             <div className="flex items-center justify-center gap-2 text-green-100">
-              <CheckCircle className="h-5 w-5" />
-              <span className="font-medium">Enterprise-Grade Security</span>
+              <CheckCircle className="h-4 w-4" />
+              <span className="text-xs font-medium">Enterprise Security</span>
             </div>
-            <p className="text-sm text-green-200 mt-2">© 2025 YourHSEPartner. All rights reserved.</p>
+            <p className="text-xs text-green-200 mt-1">© 2025 YourHSEPartner. All rights reserved.</p>
           </div>
         </div>
       </div>
