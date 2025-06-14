@@ -3,12 +3,14 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import Index from "./pages/Index";
-import ParcelsPage from "./pages/ParcelsPage";
-import ParcelsDetailsPage from "./pages/ParcelsDetailsPage";
-import CropsPage from "./pages/CropsPage";
+import PPEInventoryPage from "./pages/PPEInventoryPage";
+import ChemicalsPage from "./pages/ChemicalsPage";
+import GeneralStorePage from "./pages/GeneralStorePage";
 import InventoryPage from "./pages/InventoryPage";
-import FinancePage from "./pages/FinancePage";
 import StatsPage from "./pages/StatsPage";
+import AlertsPage from "./pages/AlertsPage";
+import UsersPage from "./pages/UsersPage";
+import SettingsPage from "./pages/SettingsPage";
 import NotFound from "./pages/NotFound";
 import { useEffect } from "react";
 import { CRMProvider } from "./contexts/CRMContext";
@@ -16,17 +18,19 @@ import { StatisticsProvider } from "./contexts/StatisticsContext";
 import { AppSettingsProvider } from "./contexts/AppSettingsContext";
 import { trackPageView } from "./utils/analytics";
 
-// Define routes configuration with redirects
+// Define routes configuration for inventory management system
 const routes = [
   { path: "/", element: <Index /> },
-  { path: "/parcelles", element: <ParcelsPage /> },
-  { path: "/parcelles/:id", element: <ParcelsDetailsPage /> },
-  { path: "/cultures", element: <CropsPage /> },
+  { path: "/ppe", element: <PPEInventoryPage /> },
+  { path: "/chemicals", element: <ChemicalsPage /> },
+  { path: "/general-store", element: <GeneralStorePage /> },
   { path: "/inventaire", element: <InventoryPage /> },
-  { path: "/finances", element: <FinancePage /> },
   { path: "/statistiques", element: <StatisticsProvider><StatsPage /></StatisticsProvider> },
+  { path: "/alerts", element: <AlertsPage /> },
+  { path: "/users", element: <UsersPage /> },
+  { path: "/settings", element: <SettingsPage /> },
   { path: "/rapports", element: <Navigate to="/statistiques" replace /> },
-  { path: "/parametres", element: <Navigate to="/" replace /> },
+  { path: "/parametres", element: <Navigate to="/settings" replace /> },
   { path: "/dashboard", element: <Navigate to="/" replace /> },
   { path: "*", element: <NotFound /> }
 ];
