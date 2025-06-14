@@ -1,7 +1,7 @@
 
 import React, { createContext, useContext, useState, useEffect } from 'react';
 
-// Types pour les différentes données statistiques
+// Types for different statistical data
 export interface YieldData {
   name: string;
   current: number;
@@ -27,15 +27,15 @@ export interface EnvironmentalData {
   current: number;
   target: number;
   trend: string;
-  status: 'Atteint' | 'En progrès' | 'En retard';
+  status: 'Achieved' | 'In Progress' | 'Behind';
 }
 
 interface StatisticsContextType {
-  // Données de rendement
+  // Yield data
   yieldData: YieldData[];
   setYieldData: React.Dispatch<React.SetStateAction<YieldData[]>>;
   
-  // Données financières
+  // Financial data
   financialData: {
     profitabilityByParcel: FinancialData[];
     costAnalysis: CostData[];
@@ -47,7 +47,7 @@ interface StatisticsContextType {
     revenueByMonth: any[];
   }>>;
   
-  // Données environnementales
+  // Environmental data
   environmentalData: {
     indicators: EnvironmentalData[];
     carbonFootprint: number;
@@ -61,17 +61,17 @@ interface StatisticsContextType {
     biodiversity: number;
   }>>;
   
-  // Données de prévision
+  // Forecast data
   forecastData: any[];
   setForecastData: React.Dispatch<React.SetStateAction<any[]>>;
   
-  // Période et filtres
+  // Period and filters
   period: 'day' | 'week' | 'month' | 'year';
   setPeriod: React.Dispatch<React.SetStateAction<'day' | 'week' | 'month' | 'year'>>;
   cropFilter: string;
   setCropFilter: React.Dispatch<React.SetStateAction<string>>;
   
-  // Fonction pour mettre à jour les données en fonction des filtres
+  // Function to update data based on filters
   updateDataWithFilters: (period: string, crop: string) => void;
 }
 
@@ -85,54 +85,54 @@ export const useStatistics = () => {
   return context;
 };
 
-// Données initiales
+// Initial data
 const initialYieldData: YieldData[] = [
-  { name: 'Canne à Sucre', current: 85, previous: 75, unit: 't/ha' },
-  { name: 'Banane', current: 32, previous: 30, unit: 't/ha' },
-  { name: 'Ananas', current: 45, previous: 48, unit: 't/ha' },
-  { name: 'Igname', current: 18, previous: 15, unit: 't/ha' },
-  { name: 'Madère', current: 22, previous: 20, unit: 't/ha' }
+  { name: 'Safety Equipment', current: 95, target: 98, unit: '%' },
+  { name: 'Emergency Response', current: 88, target: 90, unit: '%' },
+  { name: 'Environmental Compliance', current: 92, target: 95, unit: '%' },
+  { name: 'Training Completion', current: 85, target: 90, unit: '%' },
+  { name: 'Incident Reduction', current: 78, target: 85, unit: '%' }
 ];
 
 const initialProfitabilityData: FinancialData[] = [
-  { name: 'Parcelle Nord', profitability: 1250, size: 12.5, crop: 'Canne à Sucre' },
-  { name: 'Parcelle Est', profitability: 980, size: 8.3, crop: 'Banane' },
-  { name: 'Parcelle Sud', profitability: 1580, size: 15.7, crop: 'Ananas' },
-  { name: 'Parcelle Ouest', profitability: 850, size: 10.2, crop: 'Igname' },
-  { name: 'Parcelle Centrale', profitability: 920, size: 6.8, crop: 'Madère' }
+  { name: 'Safety Equipment', profitability: 12500, size: 12.5, crop: 'PPE' },
+  { name: 'Emergency Systems', profitability: 9800, size: 8.3, crop: 'Emergency' },
+  { name: 'Environmental Controls', profitability: 15800, size: 15.7, crop: 'Environmental' },
+  { name: 'Training Programs', profitability: 8500, size: 10.2, crop: 'Training' },
+  { name: 'Maintenance Equipment', profitability: 9200, size: 6.8, crop: 'Maintenance' }
 ];
 
 const initialCostData: CostData[] = [
-  { name: 'Semences', value: 1800, color: '#4CAF50' },
-  { name: 'Fertilisants', value: 2200, color: '#8D6E63' },
-  { name: 'Phyto', value: 1500, color: '#FFC107' },
-  { name: 'Carburant', value: 1200, color: '#2196F3' },
-  { name: 'Main d\'œuvre', value: 3500, color: '#673AB7' },
-  { name: 'Mécanisation', value: 2800, color: '#E91E63' },
-  { name: 'Divers', value: 900, color: '#9E9E9E' }
+  { name: 'Safety Equipment', value: 18000, color: '#4CAF50' },
+  { name: 'Training Programs', value: 22000, color: '#8D6E63' },
+  { name: 'Environmental Controls', value: 15000, color: '#FFC107' },
+  { name: 'Emergency Systems', value: 12000, color: '#2196F3' },
+  { name: 'Maintenance', value: 35000, color: '#673AB7' },
+  { name: 'Compliance', value: 28000, color: '#E91E63' },
+  { name: 'Other', value: 9000, color: '#9E9E9E' }
 ];
 
 const initialRevenueData = [
-  { month: 'Jan', revenue: 28500, expenses: 20100, profit: 8400 },
-  { month: 'Fév', revenue: 30200, expenses: 21800, profit: 8400 },
-  { month: 'Mar', revenue: 32800, expenses: 22400, profit: 10400 },
-  { month: 'Avr', revenue: 35500, expenses: 23100, profit: 12400 },
-  { month: 'Mai', revenue: 38200, expenses: 23500, profit: 14700 },
-  { month: 'Juin', revenue: 37800, expenses: 22900, profit: 14900 },
-  { month: 'Juil', revenue: 42500, expenses: 24200, profit: 18300 },
-  { month: 'Août', revenue: 44800, expenses: 25300, profit: 19500 },
-  { month: 'Sep', revenue: 40200, expenses: 24800, profit: 15400 },
-  { month: 'Oct', revenue: 38200, expenses: 23100, profit: 15100 },
-  { month: 'Nov', revenue: 36500, expenses: 22500, profit: 14000 },
-  { month: 'Déc', revenue: 41200, expenses: 25800, profit: 15400 }
+  { month: 'Jan', revenue: 285000, expenses: 201000, profit: 84000 },
+  { month: 'Feb', revenue: 302000, expenses: 218000, profit: 84000 },
+  { month: 'Mar', revenue: 328000, expenses: 224000, profit: 104000 },
+  { month: 'Apr', revenue: 355000, expenses: 231000, profit: 124000 },
+  { month: 'May', revenue: 382000, expenses: 235000, profit: 147000 },
+  { month: 'Jun', revenue: 378000, expenses: 229000, profit: 149000 },
+  { month: 'Jul', revenue: 425000, expenses: 242000, profit: 183000 },
+  { month: 'Aug', revenue: 448000, expenses: 253000, profit: 195000 },
+  { month: 'Sep', revenue: 402000, expenses: 248000, profit: 154000 },
+  { month: 'Oct', revenue: 382000, expenses: 231000, profit: 151000 },
+  { month: 'Nov', revenue: 365000, expenses: 225000, profit: 140000 },
+  { month: 'Dec', revenue: 412000, expenses: 258000, profit: 154000 }
 ];
 
 const initialEnvironmentalIndicators: EnvironmentalData[] = [
-  { indicator: 'Émissions CO2 (t/ha)', current: 2.8, target: 2.5, trend: '-5%', status: 'En progrès' },
-  { indicator: 'Consommation d\'eau (m³/ha)', current: 350, target: 320, trend: '-8%', status: 'Atteint' },
-  { indicator: 'Utilisation d\'intrants (kg/ha)', current: 180, target: 150, trend: '-12%', status: 'En progrès' },
-  { indicator: 'Surface en agriculture bio (%)', current: 15, target: 25, trend: '+5%', status: 'En progrès' },
-  { indicator: 'Biodiversité (espèces/ha)', current: 12, target: 15, trend: '+12%', status: 'Atteint' }
+  { indicator: 'CO2 Emissions (t/year)', current: 28, target: 25, trend: '-5%', status: 'In Progress' },
+  { indicator: 'Water Usage (m³/month)', current: 3500, target: 3200, trend: '-8%', status: 'Achieved' },
+  { indicator: 'Waste Reduction (%)', current: 180, target: 150, trend: '-12%', status: 'In Progress' },
+  { indicator: 'Renewable Energy (%)', current: 15, target: 25, trend: '+5%', status: 'In Progress' },
+  { indicator: 'Safety Incidents (per month)', current: 2, target: 0, trend: '-50%', status: 'In Progress' }
 ];
 
 export const StatisticsProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
@@ -152,14 +152,14 @@ export const StatisticsProvider: React.FC<{ children: React.ReactNode }> = ({ ch
   const [period, setPeriod] = useState<'day' | 'week' | 'month' | 'year'>('year');
   const [cropFilter, setCropFilter] = useState('all');
   
-  // Fonction pour mettre à jour les données en fonction des filtres
+  // Function to update data based on filters
   const updateDataWithFilters = (period: string, crop: string) => {
-    // Filtrer les données de rendement par culture si nécessaire
+    // Filter yield data by category if necessary
     if (crop !== 'all') {
       const filteredYieldData = initialYieldData.filter(item => item.name === crop);
       setYieldData(filteredYieldData);
       
-      // Filtrer également les données financières par culture
+      // Also filter financial data by category
       const filteredProfitabilityData = initialProfitabilityData.filter(item => item.crop === crop);
       setFinancialData(prev => ({
         ...prev,
@@ -173,10 +173,10 @@ export const StatisticsProvider: React.FC<{ children: React.ReactNode }> = ({ ch
       }));
     }
     
-    // Vous pourriez également ajuster les autres données en fonction de la période
+    // You could also adjust other data based on the period
   };
   
-  // Mettre à jour les données lorsque les filtres changent
+  // Update data when filters change
   useEffect(() => {
     updateDataWithFilters(period, cropFilter);
   }, [period, cropFilter]);
