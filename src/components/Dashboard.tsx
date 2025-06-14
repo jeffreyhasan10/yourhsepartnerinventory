@@ -30,7 +30,6 @@ import { Input } from './ui/input';
 import { Label } from './ui/label';
 import { AuthContext } from '../App';
 
-// Sample data for HSE inventory system
 const monthlyData = [
   { month: 'Jan', issues: 45, returns: 40, compliance: 95 },
   { month: 'Feb', issues: 52, returns: 48, compliance: 97 },
@@ -216,11 +215,11 @@ const Dashboard = () => {
   };
 
   return (
-    <div className="space-y-8 animate-enter">
+    <div className="space-y-6 animate-enter">
       {/* Header */}
-      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 bg-gradient-to-r from-green-50 to-emerald-50 p-6 rounded-xl border border-green-100">
         <div>
-          <h1 className="text-3xl font-bold text-gray-900">
+          <h1 className="text-2xl font-bold text-gray-900 mb-1">
             <EditableField
               value={title}
               onSave={handleTitleChange}
@@ -228,7 +227,7 @@ const Dashboard = () => {
               showEditIcon={true}
             />
           </h1>
-          <p className="text-gray-600 mt-1">
+          <p className="text-gray-600">
             <EditableField
               value={description}
               onSave={handleDescriptionChange}
@@ -242,7 +241,7 @@ const Dashboard = () => {
         </div>
         <Button 
           onClick={() => setNewItemDialog(true)}
-          className="bg-green-600 hover:bg-green-700 shadow-lg text-white"
+          className="bg-green-600 hover:bg-green-700 shadow-md text-white"
         >
           <Plus className="h-4 w-4 mr-2" />
           Add New Item
@@ -250,18 +249,18 @@ const Dashboard = () => {
       </div>
 
       {/* Enhanced Key Metrics */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-        <Card className="relative overflow-hidden border-0 shadow-lg bg-gradient-to-br from-green-50 to-emerald-100">
-          <div className="absolute top-0 right-0 w-20 h-20 bg-green-200 rounded-full -translate-y-10 translate-x-10 opacity-30"></div>
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+        <Card className="relative overflow-hidden border-0 shadow-lg bg-gradient-to-br from-green-50 to-emerald-100 hover:shadow-xl transition-shadow">
+          <div className="absolute top-0 right-0 w-16 h-16 bg-green-200 rounded-full -translate-y-8 translate-x-8 opacity-30"></div>
           <CardHeader className="pb-2">
             <div className="flex items-center justify-between">
               <CardTitle className="text-sm font-medium text-green-800">Total Items</CardTitle>
-              <Package className="h-8 w-8 text-green-600" />
+              <Package className="h-6 w-6 text-green-600" />
             </div>
           </CardHeader>
           <CardContent>
-            <div className="space-y-2">
-              <p className="text-3xl font-bold text-green-900">
+            <div className="space-y-1">
+              <p className="text-2xl font-bold text-green-900">
                 <EditableField
                   value={totalItems}
                   type="number"
@@ -269,25 +268,25 @@ const Dashboard = () => {
                   className="inline-block"
                 />
               </p>
-              <div className="flex items-center text-sm text-green-700">
-                <ArrowUpRight className="h-4 w-4 mr-1" />
+              <div className="flex items-center text-xs text-green-700">
+                <ArrowUpRight className="h-3 w-3 mr-1" />
                 <span>+12% from last month</span>
               </div>
             </div>
           </CardContent>
         </Card>
 
-        <Card className="relative overflow-hidden border-0 shadow-lg bg-gradient-to-br from-yellow-50 to-yellow-100">
-          <div className="absolute top-0 right-0 w-20 h-20 bg-yellow-200 rounded-full -translate-y-10 translate-x-10 opacity-30"></div>
+        <Card className="relative overflow-hidden border-0 shadow-lg bg-gradient-to-br from-yellow-50 to-yellow-100 hover:shadow-xl transition-shadow">
+          <div className="absolute top-0 right-0 w-16 h-16 bg-yellow-200 rounded-full -translate-y-8 translate-x-8 opacity-30"></div>
           <CardHeader className="pb-2">
             <div className="flex items-center justify-between">
               <CardTitle className="text-sm font-medium text-yellow-800">Low Stock Items</CardTitle>
-              <AlertTriangle className="h-8 w-8 text-yellow-600" />
+              <AlertTriangle className="h-6 w-6 text-yellow-600" />
             </div>
           </CardHeader>
           <CardContent>
-            <div className="space-y-2">
-              <p className="text-3xl font-bold text-yellow-900">
+            <div className="space-y-1">
+              <p className="text-2xl font-bold text-yellow-900">
                 <EditableField
                   value={lowStockItems}
                   type="number"
@@ -295,25 +294,25 @@ const Dashboard = () => {
                   className="inline-block"
                 />
               </p>
-              <div className="flex items-center text-sm text-yellow-700">
-                <ArrowDownRight className="h-4 w-4 mr-1" />
+              <div className="flex items-center text-xs text-yellow-700">
+                <ArrowDownRight className="h-3 w-3 mr-1" />
                 <span>-5% from last week</span>
               </div>
             </div>
           </CardContent>
         </Card>
 
-        <Card className="relative overflow-hidden border-0 shadow-lg bg-gradient-to-br from-red-50 to-red-100">
-          <div className="absolute top-0 right-0 w-20 h-20 bg-red-200 rounded-full -translate-y-10 translate-x-10 opacity-30"></div>
+        <Card className="relative overflow-hidden border-0 shadow-lg bg-gradient-to-br from-red-50 to-red-100 hover:shadow-xl transition-shadow">
+          <div className="absolute top-0 right-0 w-16 h-16 bg-red-200 rounded-full -translate-y-8 translate-x-8 opacity-30"></div>
           <CardHeader className="pb-2">
             <div className="flex items-center justify-between">
               <CardTitle className="text-sm font-medium text-red-800">Expiring Soon</CardTitle>
-              <Calendar className="h-8 w-8 text-red-600" />
+              <Calendar className="h-6 w-6 text-red-600" />
             </div>
           </CardHeader>
           <CardContent>
-            <div className="space-y-2">
-              <p className="text-3xl font-bold text-red-900">
+            <div className="space-y-1">
+              <p className="text-2xl font-bold text-red-900">
                 <EditableField
                   value={expiringItems}
                   type="number"
@@ -321,25 +320,25 @@ const Dashboard = () => {
                   className="inline-block"
                 />
               </p>
-              <div className="flex items-center text-sm text-red-700">
-                <ArrowUpRight className="h-4 w-4 mr-1" />
+              <div className="flex items-center text-xs text-red-700">
+                <ArrowUpRight className="h-3 w-3 mr-1" />
                 <span>+2 items this week</span>
               </div>
             </div>
           </CardContent>
         </Card>
 
-        <Card className="relative overflow-hidden border-0 shadow-lg bg-gradient-to-br from-green-50 to-green-100">
-          <div className="absolute top-0 right-0 w-20 h-20 bg-green-200 rounded-full -translate-y-10 translate-x-10 opacity-30"></div>
+        <Card className="relative overflow-hidden border-0 shadow-lg bg-gradient-to-br from-green-50 to-green-100 hover:shadow-xl transition-shadow">
+          <div className="absolute top-0 right-0 w-16 h-16 bg-green-200 rounded-full -translate-y-8 translate-x-8 opacity-30"></div>
           <CardHeader className="pb-2">
             <div className="flex items-center justify-between">
               <CardTitle className="text-sm font-medium text-green-800">Compliance Score</CardTitle>
-              <Shield className="h-8 w-8 text-green-600" />
+              <Shield className="h-6 w-6 text-green-600" />
             </div>
           </CardHeader>
           <CardContent>
-            <div className="space-y-2">
-              <p className="text-3xl font-bold text-green-900">
+            <div className="space-y-1">
+              <p className="text-2xl font-bold text-green-900">
                 <EditableField
                   value={complianceScore}
                   type="number"
@@ -347,8 +346,8 @@ const Dashboard = () => {
                   className="inline-block"
                 />%
               </p>
-              <div className="flex items-center text-sm text-green-700">
-                <ArrowUpRight className="h-4 w-4 mr-1" />
+              <div className="flex items-center text-xs text-green-700">
+                <ArrowUpRight className="h-3 w-3 mr-1" />
                 <span>+3% this quarter</span>
               </div>
             </div>
@@ -357,25 +356,25 @@ const Dashboard = () => {
       </div>
 
       {/* Enhanced Charts */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Monthly Activity Chart */}
-        <Card className="shadow-lg border-0">
-          <CardHeader className="pb-4">
+        <Card className="shadow-lg border-0 hover:shadow-xl transition-shadow">
+          <CardHeader className="pb-3">
             <div className="flex items-center justify-between">
               <div className="flex items-center space-x-3">
                 <div className="p-2 bg-green-100 rounded-lg">
-                  <Activity className="h-5 w-5 text-green-600" />
+                  <Activity className="h-4 w-4 text-green-600" />
                 </div>
                 <div>
                   <CardTitle className="text-lg font-semibold">Monthly Activity</CardTitle>
                   <p className="text-sm text-gray-500">Equipment issues and returns</p>
                 </div>
               </div>
-              <Badge variant="secondary" className="bg-green-50 text-green-700">Live Data</Badge>
+              <Badge variant="secondary" className="bg-green-50 text-green-700 text-xs">Live Data</Badge>
             </div>
           </CardHeader>
           <CardContent>
-            <div className="h-80">
+            <div className="h-64">
               <ResponsiveContainer width="100%" height="100%">
                 <AreaChart data={monthlyData}>
                   <defs>
@@ -410,23 +409,23 @@ const Dashboard = () => {
         </Card>
 
         {/* Category Distribution */}
-        <Card className="shadow-lg border-0">
-          <CardHeader className="pb-4">
+        <Card className="shadow-lg border-0 hover:shadow-xl transition-shadow">
+          <CardHeader className="pb-3">
             <div className="flex items-center justify-between">
               <div className="flex items-center space-x-3">
                 <div className="p-2 bg-green-100 rounded-lg">
-                  <BarChart3 className="h-5 w-5 text-green-600" />
+                  <BarChart3 className="h-4 w-4 text-green-600" />
                 </div>
                 <div>
                   <CardTitle className="text-lg font-semibold">Category Distribution</CardTitle>
                   <p className="text-sm text-gray-500">Inventory breakdown by type</p>
                 </div>
               </div>
-              <Badge variant="secondary" className="bg-green-50 text-green-700">Updated</Badge>
+              <Badge variant="secondary" className="bg-green-50 text-green-700 text-xs">Updated</Badge>
             </div>
           </CardHeader>
           <CardContent>
-            <div className="h-80">
+            <div className="h-64">
               <ResponsiveContainer width="100%" height="100%">
                 <PieChart>
                   <Pie
@@ -458,29 +457,29 @@ const Dashboard = () => {
       </div>
 
       {/* Tasks and Alerts with enhanced styling */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Recent Tasks */}
-        <Card className="shadow-lg border-0">
-          <CardHeader className="pb-4">
+        <Card className="shadow-lg border-0 hover:shadow-xl transition-shadow">
+          <CardHeader className="pb-3">
             <div className="flex items-center justify-between">
               <div className="flex items-center space-x-3">
                 <div className="p-2 bg-purple-100 rounded-lg">
-                  <Calendar className="h-5 w-5 text-purple-600" />
+                  <Calendar className="h-4 w-4 text-purple-600" />
                 </div>
                 <div>
                   <CardTitle className="text-lg font-semibold">Recent Tasks</CardTitle>
                   <p className="text-sm text-gray-500">HSE activities and maintenance</p>
                 </div>
               </div>
-              <Badge variant="secondary" className="bg-purple-50 text-purple-700">{tasks.length} Active</Badge>
+              <Badge variant="secondary" className="bg-purple-50 text-purple-700 text-xs">{tasks.length} Active</Badge>
             </div>
           </CardHeader>
           <CardContent>
-            <div className="space-y-3 max-h-96 overflow-y-auto custom-scrollbar">
+            <div className="space-y-3 max-h-80 overflow-y-auto custom-scrollbar">
               {tasks.map((task) => (
                 <div 
                   key={task.id} 
-                  className="flex items-center p-4 rounded-lg border border-gray-100 hover:border-gray-200 hover:shadow-md transition-all bg-white"
+                  className="flex items-center p-3 rounded-lg border border-gray-100 hover:border-gray-200 hover:shadow-sm transition-all bg-white"
                 >
                   <div className="flex-1">
                     {editingTask === task.id ? (
@@ -489,51 +488,48 @@ const Dashboard = () => {
                           type="text"
                           value={editedTaskTitle}
                           onChange={(e) => setEditedTaskTitle(e.target.value)}
-                          className="border rounded-md px-3 py-2 text-sm flex-1 focus:ring-2 focus:ring-green-500 focus:border-green-500"
+                          className="border rounded-md px-2 py-1 text-sm flex-1 focus:ring-2 focus:ring-green-500 focus:border-green-500"
                           autoFocus
                         />
                         <button 
                           onClick={() => handleSaveTask(task.id)}
-                          className="p-2 text-green-600 hover:bg-green-50 rounded-md transition-colors"
+                          className="p-1 text-green-600 hover:bg-green-50 rounded-md transition-colors"
                         >
                           <Check className="h-4 w-4" />
                         </button>
                         <button 
                           onClick={() => setEditingTask(null)}
-                          className="p-2 text-red-600 hover:bg-red-50 rounded-md transition-colors"
+                          className="p-1 text-red-600 hover:bg-red-50 rounded-md transition-colors"
                         >
                           <X className="h-4 w-4" />
                         </button>
                       </div>
                     ) : (
                       <>
-                        <p className="font-medium text-sm text-gray-900">{task.title}</p>
-                        <div className="flex items-center gap-3 mt-2 flex-wrap">
-                          <p className="text-xs text-gray-500">Due: {task.due}</p>
-                          <Badge className={`${getPriorityColor(task.priority)} text-xs`} variant="secondary">
+                        <p className="font-medium text-sm text-gray-900 mb-2">{task.title}</p>
+                        <div className="flex items-center gap-2 flex-wrap">
+                          <Badge className={`text-xs ${getPriorityColor(task.priority)}`}>
                             {task.priority}
                           </Badge>
-                          <Badge className={`${getStatusColor(task.status)} text-xs`} variant="secondary">
+                          <Badge className={`text-xs ${getStatusColor(task.status)}`}>
                             {task.status}
                           </Badge>
-                          <Badge variant="outline" className="text-xs">
-                            {task.category}
-                          </Badge>
+                          <span className="text-xs text-gray-500">{task.due}</span>
                         </div>
                       </>
                     )}
                   </div>
                   {editingTask !== task.id && (
-                    <div className="flex gap-1 ml-3">
+                    <div className="flex items-center gap-1 ml-2">
                       <button 
                         onClick={() => handleEditTask(task.id)}
-                        className="p-2 hover:bg-gray-100 rounded-md transition-colors"
+                        className="p-1 text-blue-600 hover:bg-blue-50 rounded-md transition-colors"
                       >
-                        <Edit className="h-4 w-4 text-gray-500" />
+                        <Edit className="h-4 w-4" />
                       </button>
                       <button 
                         onClick={() => handleDeleteTask(task.id)}
-                        className="p-2 hover:bg-gray-100 rounded-md text-red-500 transition-colors"
+                        className="p-1 text-red-600 hover:bg-red-50 rounded-md transition-colors"
                       >
                         <Trash2 className="h-4 w-4" />
                       </button>
@@ -544,52 +540,47 @@ const Dashboard = () => {
             </div>
           </CardContent>
         </Card>
-        
-        {/* Active Alerts - Enhanced */}
-        <Card className="shadow-lg border-0">
-          <CardHeader className="pb-4">
+
+        {/* Safety Alerts */}
+        <Card className="shadow-lg border-0 hover:shadow-xl transition-shadow">
+          <CardHeader className="pb-3">
             <div className="flex items-center justify-between">
               <div className="flex items-center space-x-3">
-                <div className="p-2 bg-orange-100 rounded-lg">
-                  <AlertTriangle className="h-5 w-5 text-orange-600" />
+                <div className="p-2 bg-red-100 rounded-lg">
+                  <AlertTriangle className="h-4 w-4 text-red-600" />
                 </div>
                 <div>
-                  <CardTitle className="text-lg font-semibold">Active Alerts</CardTitle>
-                  <p className="text-sm text-gray-500">Safety and compliance notifications</p>
+                  <CardTitle className="text-lg font-semibold">Safety Alerts</CardTitle>
+                  <p className="text-sm text-gray-500">Critical notifications</p>
                 </div>
               </div>
-              <Badge variant="secondary" className="bg-orange-50 text-orange-700">{alerts.length} Alerts</Badge>
+              <Badge variant="secondary" className="bg-red-50 text-red-700 text-xs">{alerts.length} Active</Badge>
             </div>
           </CardHeader>
           <CardContent>
-            <div className="space-y-3 max-h-96 overflow-y-auto custom-scrollbar">
+            <div className="space-y-3 max-h-80 overflow-y-auto custom-scrollbar">
               {alerts.map((alert) => (
                 <div 
                   key={alert.id} 
-                  className={`p-4 rounded-lg border-l-4 ${getAlertColor(alert.type)} shadow-sm`}
+                  className={`p-3 rounded-lg border-l-4 ${getAlertColor(alert.type)} hover:shadow-sm transition-shadow`}
                 >
                   <div className="flex items-start justify-between">
-                    <div className="flex items-start space-x-3 flex-1">
+                    <div className="flex items-start flex-1">
                       {getAlertIcon(alert.type)}
-                      <div className="flex-1 min-w-0">
-                        <p className="font-medium text-sm">{alert.message}</p>
-                        <div className="flex items-center gap-3 mt-2 flex-wrap">
-                          <Badge 
-                            className={`${getPriorityBadgeColor(alert.priority)} text-xs border-0`} 
-                            variant="secondary"
-                          >
+                      <div className="ml-3 flex-1">
+                        <p className="text-sm font-medium">{alert.message}</p>
+                        <div className="flex items-center gap-2 mt-2">
+                          <Badge className={`text-xs ${getPriorityBadgeColor(alert.priority)}`}>
                             {alert.priority}
                           </Badge>
-                          <Badge variant="outline" className="text-xs">
-                            {alert.category}
-                          </Badge>
-                          <span className="text-xs text-gray-400">{alert.time}</span>
+                          <span className="text-xs opacity-75">{alert.category}</span>
+                          <span className="text-xs opacity-75">{alert.time}</span>
                         </div>
                       </div>
                     </div>
                     <button 
                       onClick={() => handleDeleteAlert(alert.id)}
-                      className="p-1.5 hover:bg-white hover:bg-opacity-50 rounded-md transition-colors ml-2"
+                      className="text-gray-400 hover:text-red-600 p-1 rounded hover:bg-white/50 transition-colors"
                     >
                       <X className="h-4 w-4" />
                     </button>
@@ -601,33 +592,30 @@ const Dashboard = () => {
         </Card>
       </div>
 
-      {/* Enhanced Add New Item Dialog */}
+      {/* Add New Item Dialog */}
       <Dialog open={newItemDialog} onOpenChange={setNewItemDialog}>
         <DialogContent className="sm:max-w-md">
           <DialogHeader>
-            <DialogTitle className="flex items-center gap-2">
-              <Package className="h-5 w-5 text-green-600" />
-              Add New Inventory Item
-            </DialogTitle>
+            <DialogTitle>Add New Inventory Item</DialogTitle>
           </DialogHeader>
           <div className="grid gap-4 py-4">
-            <div className="space-y-2">
-              <Label htmlFor="itemName">Item Name *</Label>
+            <div className="grid grid-cols-4 items-center gap-4">
+              <Label htmlFor="name" className="text-right">Name</Label>
               <Input
-                id="itemName"
+                id="name"
                 value={newItem.name}
                 onChange={(e) => setNewItem({...newItem, name: e.target.value})}
-                placeholder="Enter item name"
-                className="focus:ring-2 focus:ring-green-500"
+                placeholder="Item name"
+                className="col-span-3"
               />
             </div>
-            <div className="space-y-2">
-              <Label htmlFor="category">Category *</Label>
+            <div className="grid grid-cols-4 items-center gap-4">
+              <Label htmlFor="category" className="text-right">Category</Label>
               <select
                 id="category"
                 value={newItem.category}
                 onChange={(e) => setNewItem({...newItem, category: e.target.value})}
-                className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm focus:ring-2 focus:ring-green-500"
+                className="col-span-3 flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm"
               >
                 <option value="PPE">PPE</option>
                 <option value="Chemicals">Chemicals</option>
@@ -635,41 +623,31 @@ const Dashboard = () => {
                 <option value="Medical">Medical</option>
               </select>
             </div>
-            <div className="grid grid-cols-2 gap-4">
-              <div className="space-y-2">
-                <Label htmlFor="quantity">Quantity *</Label>
-                <Input
-                  id="quantity"
-                  type="number"
-                  value={newItem.quantity}
-                  onChange={(e) => setNewItem({...newItem, quantity: e.target.value})}
-                  placeholder="0"
-                  className="focus:ring-2 focus:ring-green-500"
-                />
-              </div>
-              <div className="space-y-2">
-                <Label htmlFor="unit">Unit</Label>
-                <select
-                  id="unit"
-                  value={newItem.unit}
-                  onChange={(e) => setNewItem({...newItem, unit: e.target.value})}
-                  className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm focus:ring-2 focus:ring-green-500"
-                >
-                  <option value="pieces">Pieces</option>
-                  <option value="boxes">Boxes</option>
-                  <option value="liters">Liters</option>
-                  <option value="kg">Kilograms</option>
-                  <option value="pairs">Pairs</option>
-                </select>
-              </div>
+            <div className="grid grid-cols-4 items-center gap-4">
+              <Label htmlFor="quantity" className="text-right">Quantity</Label>
+              <Input
+                id="quantity"
+                type="number"
+                value={newItem.quantity}
+                onChange={(e) => setNewItem({...newItem, quantity: e.target.value})}
+                placeholder="0"
+                className="col-span-2"
+              />
+              <select
+                value={newItem.unit}
+                onChange={(e) => setNewItem({...newItem, unit: e.target.value})}
+                className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm"
+              >
+                <option value="pieces">pieces</option>
+                <option value="boxes">boxes</option>
+                <option value="liters">liters</option>
+                <option value="kg">kg</option>
+              </select>
             </div>
           </div>
           <DialogFooter>
             <Button variant="outline" onClick={() => setNewItemDialog(false)}>Cancel</Button>
-            <Button onClick={handleAddItem} className="bg-green-600 hover:bg-green-700">
-              <Plus className="h-4 w-4 mr-2" />
-              Add Item
-            </Button>
+            <Button onClick={handleAddItem} className="bg-green-600 hover:bg-green-700">Add Item</Button>
           </DialogFooter>
         </DialogContent>
       </Dialog>
