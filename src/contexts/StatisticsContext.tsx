@@ -1,4 +1,3 @@
-
 import React, { createContext, useContext, useState, useEffect } from 'react';
 
 // Types for different statistical data
@@ -6,6 +5,7 @@ export interface YieldData {
   name: string;
   current: number;
   previous: number;
+  target: number;
   unit: string;
 }
 
@@ -87,11 +87,11 @@ export const useStatistics = () => {
 
 // Initial data
 const initialYieldData: YieldData[] = [
-  { name: 'Safety Equipment', current: 95, target: 98, unit: '%' },
-  { name: 'Emergency Response', current: 88, target: 90, unit: '%' },
-  { name: 'Environmental Compliance', current: 92, target: 95, unit: '%' },
-  { name: 'Training Completion', current: 85, target: 90, unit: '%' },
-  { name: 'Incident Reduction', current: 78, target: 85, unit: '%' }
+  { name: 'Safety Equipment', current: 95, previous: 90, target: 98, unit: '%' },
+  { name: 'Emergency Response', current: 88, previous: 85, target: 90, unit: '%' },
+  { name: 'Environmental Compliance', current: 92, previous: 88, target: 95, unit: '%' },
+  { name: 'Training Completion', current: 85, previous: 80, target: 90, unit: '%' },
+  { name: 'Incident Reduction', current: 78, previous: 75, target: 85, unit: '%' }
 ];
 
 const initialProfitabilityData: FinancialData[] = [

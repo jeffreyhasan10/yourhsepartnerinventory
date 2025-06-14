@@ -13,7 +13,7 @@ const EnvironmentalCharts = () => {
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         <Card>
           <CardHeader>
-            <CardTitle>Bilan carbone</CardTitle>
+            <CardTitle>Carbon Footprint</CardTitle>
           </CardHeader>
           <CardContent className="flex flex-col items-center justify-center">
             <div className="text-center">
@@ -21,11 +21,11 @@ const EnvironmentalCharts = () => {
                 <div className="w-32 h-32 rounded-full border-8 border-agri-primary"></div>
                 <div className="absolute inset-0 flex items-center justify-center flex-col">
                   <span className="text-2xl font-bold">{carbonFootprint}%</span>
-                  <span className="text-xs text-muted-foreground">vs N-1</span>
+                  <span className="text-xs text-muted-foreground">vs Previous</span>
                 </div>
               </div>
               <p className="mt-4 text-sm">
-                Réduction des émissions de carbone grâce aux pratiques agricoles durables.
+                Reduction in carbon emissions through sustainable practices.
               </p>
             </div>
           </CardContent>
@@ -33,7 +33,7 @@ const EnvironmentalCharts = () => {
         
         <Card>
           <CardHeader>
-            <CardTitle>Consommation d'eau</CardTitle>
+            <CardTitle>Water Usage</CardTitle>
           </CardHeader>
           <CardContent className="flex flex-col items-center justify-center">
             <div className="text-center">
@@ -41,11 +41,11 @@ const EnvironmentalCharts = () => {
                 <div className="w-32 h-32 rounded-full border-8 border-[#2196F3]"></div>
                 <div className="absolute inset-0 flex items-center justify-center flex-col">
                   <span className="text-2xl font-bold">{waterUsage}%</span>
-                  <span className="text-xs text-muted-foreground">vs N-1</span>
+                  <span className="text-xs text-muted-foreground">vs Previous</span>
                 </div>
               </div>
               <p className="mt-4 text-sm">
-                Réduction de la consommation d'eau par optimisation de l'irrigation.
+                Reduction in water consumption through optimization.
               </p>
             </div>
           </CardContent>
@@ -53,7 +53,7 @@ const EnvironmentalCharts = () => {
         
         <Card>
           <CardHeader>
-            <CardTitle>Biodiversité</CardTitle>
+            <CardTitle>Environmental Impact</CardTitle>
           </CardHeader>
           <CardContent className="flex flex-col items-center justify-center">
             <div className="text-center">
@@ -61,11 +61,11 @@ const EnvironmentalCharts = () => {
                 <div className="w-32 h-32 rounded-full border-8 border-[#FFC107]"></div>
                 <div className="absolute inset-0 flex items-center justify-center flex-col">
                   <span className="text-2xl font-bold">+{biodiversity}%</span>
-                  <span className="text-xs text-muted-foreground">vs N-1</span>
+                  <span className="text-xs text-muted-foreground">vs Previous</span>
                 </div>
               </div>
               <p className="mt-4 text-sm">
-                Augmentation de la biodiversité sur l'exploitation.
+                Improvement in environmental performance indicators.
               </p>
             </div>
           </CardContent>
@@ -74,18 +74,18 @@ const EnvironmentalCharts = () => {
       
       <Card>
         <CardHeader>
-          <CardTitle>Indicateurs environnementaux</CardTitle>
+          <CardTitle>Environmental Indicators</CardTitle>
         </CardHeader>
         <CardContent>
           <div className="overflow-x-auto">
             <table className="w-full text-sm">
               <thead className="bg-muted text-xs uppercase">
                 <tr>
-                  <th className="px-4 py-2 text-left">Indicateur</th>
-                  <th className="px-4 py-2 text-left">Valeur actuelle</th>
-                  <th className="px-4 py-2 text-left">Objectif</th>
-                  <th className="px-4 py-2 text-left">Tendance</th>
-                  <th className="px-4 py-2 text-left">Statut</th>
+                  <th className="px-4 py-2 text-left">Indicator</th>
+                  <th className="px-4 py-2 text-left">Current Value</th>
+                  <th className="px-4 py-2 text-left">Target</th>
+                  <th className="px-4 py-2 text-left">Trend</th>
+                  <th className="px-4 py-2 text-left">Status</th>
                 </tr>
               </thead>
               <tbody>
@@ -97,7 +97,7 @@ const EnvironmentalCharts = () => {
                     <td className="px-4 py-3 text-agri-success">{item.trend}</td>
                     <td className="px-4 py-3">
                       <span className={`inline-flex items-center px-2 py-1 rounded-full text-xs ${
-                        item.status === 'Atteint' 
+                        item.status === 'Achieved' 
                           ? 'bg-agri-success/10 text-agri-success' 
                           : 'bg-agri-warning/10 text-agri-warning'
                       }`}>
@@ -114,7 +114,7 @@ const EnvironmentalCharts = () => {
       
       <Card>
         <CardHeader>
-          <CardTitle>Certifications et engagements</CardTitle>
+          <CardTitle>Certifications and Standards</CardTitle>
         </CardHeader>
         <CardContent>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
@@ -122,27 +122,27 @@ const EnvironmentalCharts = () => {
               <div className="w-16 h-16 rounded-full bg-agri-primary/10 flex items-center justify-center mb-2">
                 <Check className="h-8 w-8 text-agri-primary" />
               </div>
-              <h4 className="font-medium mb-1">Agriculture Raisonnée</h4>
+              <h4 className="font-medium mb-1">ISO 14001</h4>
               <p className="text-sm text-center text-muted-foreground">
-                Certifié depuis 2019
+                Environmental Management
               </p>
             </div>
             <div className="border rounded-lg p-4 flex flex-col items-center">
               <div className="w-16 h-16 rounded-full bg-[#FFC107]/10 flex items-center justify-center mb-2">
                 <Layers className="h-8 w-8 text-[#FFC107]" />
               </div>
-              <h4 className="font-medium mb-1">HVE Niveau 2</h4>
+              <h4 className="font-medium mb-1">OHSAS 18001</h4>
               <p className="text-sm text-center text-muted-foreground">
-                Haute Valeur Environnementale
+                Occupational Health & Safety
               </p>
             </div>
             <div className="border rounded-lg p-4 flex flex-col items-center">
               <div className="w-16 h-16 rounded-full bg-[#2196F3]/10 flex items-center justify-center mb-2">
                 <ArrowRight className="h-8 w-8 text-[#2196F3]" />
               </div>
-              <h4 className="font-medium mb-1">En conversion Bio</h4>
+              <h4 className="font-medium mb-1">ISO 45001</h4>
               <p className="text-sm text-center text-muted-foreground">
-                15% de la surface totale
+                Safety Management System
               </p>
             </div>
           </div>
